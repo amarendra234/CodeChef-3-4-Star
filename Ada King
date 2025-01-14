@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int r,c,k;
+	    cin>>r>>c>>k;
+	    int x[]={-1,0,1,-1,0,1,-1,1};
+	    int y[]={1,1,1,-1,-1,-1,0,0};
+	    queue<pair<int,pair<int,int>>>q;
+	    q.push({r,{c,0}});
+	    vector<vector<int>>vis(9,vector<int>(9,0));
+	    vis[r][c]=1;
+	    int count=0;
+	    while(q.size()>0){
+	        int row=q.front().first;
+	        int col=q.front().second.first;
+	        int move=q.front().second.second;
+	        q.pop();
+	        count++;
+	      for(int i=0;i<8;i++){
+	         int lx=x[i]+row;
+	        int ly=y[i]+col;
+	        if(lx>=1 and lx<=8 and ly>=1 and ly<=8 and vis[lx][ly]==0){
+	            if(move<k){
+	                 q.push({lx,{ly,move+1}});
+	                 vis[lx][ly]=1;
+	            }
+	           
+	         }
+	      }
+	    }
+	 
+	    cout<<count<<endl;
+	}
+	return 0;
+}

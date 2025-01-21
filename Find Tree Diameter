@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+pair<int,int> bfs(vector<int>adj[],int src ,int n){
+          queue<int>q;
+          vector<int>dist(n+1,-1);
+          int max_dist=0;
+          int fastestNode=src;
+          q.push(src);
+          dist[src]=0;
+          while(q.size()>0){
+            int node=q.front();
+            q.pop();
+            for(auto adjNode:adj[node]){
+                if(dist[adjNode]==-1){
+                    dist[adjNode]=dist[node]+1;
+                    q.push(adjNode);
+                    if(max_dist<dist[adjNode]){
+                        max_dist=dist[adjNode];
+                        fastestNode=adjNode;
+                    }
+                }
+            }
+          }
+        return {max_dist,fastestNode};
+}
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        vector<int>adj[n+1];
+        for(int i=0;i<n-1;i++){
+            int u,v;
+            cin>>u>>v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        pair<int,int>fartest=bfs(adj,1,n);
+        pair<int,int>res=bfs(adj,fartest.second,n);
+        cout<<res.first<<endl;
+    }
+}

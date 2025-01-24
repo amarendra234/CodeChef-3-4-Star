@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n,m;
+        cin>>n>>m;
+        // rooms where elephant can visit
+        int roomsToVisit[m];
+        unordered_map<int,int>umap;
+        for(int i=0;i<m;i++){
+            cin>>roomsToVisit[i];
+            umap[roomsToVisit[i]]++;
+        }
+        int ans=0;
+        for(int i=0;i<n;i++){
+            int ci;
+            cin>>ci;
+            int litres[ci];
+            priority_queue<int>pq;
+            for(int j=0;j<ci;j++){
+                cin>>litres[j];
+                pq.push(litres[j]);
+            }
+            if(umap.find(i)!=umap.end()){
+                int fre=umap[i];
+                while(pq.size()>0 and fre>0){
+                    ans+=pq.top();
+                    pq.pop();
+                    fre--;
+                }
+                
+            }
+            
+
+        }
+        cout<<ans<<endl;
+    }
+}
